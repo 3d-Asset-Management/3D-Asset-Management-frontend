@@ -1,0 +1,15 @@
+.generate3d__input{
+  width: 100% !important;
+}
+.generate3d__input__text{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 95%;
+    padding: 0.9rem;
+    background: #121316;
+    border: 1px solid #616163;
+    box-shadow: 0 0 25rem rgba(20, 5, 52, 0.2);
+    border-radius: 0.5rem;
+    gap: 1.6rem;
+}

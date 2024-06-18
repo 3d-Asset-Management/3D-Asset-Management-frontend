@@ -1,0 +1,108 @@
+
+.card{
+    max-width: 25rem;
+    flex-grow: 1;
+    overflow: hidden;
+    position: relative;
+    border-radius: 1rem;
+    background-color: #191a1ef1; 
+    padding: 0.15rem;
+}
+
+
+.ModelCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 1rem;
+    background-color: #191a1ef8; 
+    transition: #191a1e .2s ease;
+    flex-grow:2;
+    overflow: hidden;
+    width: 100%;
+    height: 99.5%;
+}
+
+.ModelCard:hover {
+    border: 1px solid #3c3c3c;
+    transition: #1f2024 .2s ease;
+}
+
+
+.ModelCard_container-image-sub {
+    outline: none;
+    border: none;
+    border-radius: 1rem;
+    overflow: hidden;
+    z-index: 1;
+    margin-top: 4rem;
+    flex-grow: 1;
+}
+
+.ModelCard img {
+    height: 13rem;
+    object-fit: cover;
+    transition: -webkit-transform .2s ease-out;
+    transition: transform .2s ease-out;
+    transition: transform .2s ease-out, -webkit-transform .2s ease-out;
+    color: transparent;
+    transform: scale(1.1);
+
+}
+ .ModelCard img:hover {
+    transform: scale(1.19);
+    transition: transform .2s ease-out;
+ } 
+
+
+.ModelCard__contents__container {
+    width: 90%;
+    height: auto;
+    padding: 2.3rem 0rem;
+    text-align: center;
+}
+
+.text-medium {
+    font-size: 1rem;
+    margin: 0;
+    text-align: center;
+    color: hsla(0, 0%, 100%, 0.772);
+}
+.text-small {
+    font-size: 1rem;
+    margin: 1rem 0 .75rem;
+    text-align: center;
+    color: hsla(0,0%,100%,.4);
+}
+/* .modelBox__p{
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+} */
+
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: var(--y);
+    left: var(--x);
+    transform: translate(-50%, -50%);
+    background: radial-gradient(var(--clr), transparent, transparent);
+    width: 800px;
+    height: 800px;
+    opacity: 0;
+    transition: 0.5s, top 0s, left 0s;
+  }
+  
+  .card:hover::before {
+    opacity: 1;
+  }
+  
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: 18px;
+    z-index: -1;
+  }

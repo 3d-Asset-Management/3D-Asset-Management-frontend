@@ -1,0 +1,22 @@
+.container{
+    margin-top: 3rem;
+}
+.card__btns{
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 2.5rem 0rem;
+}
+.card__btns-left{
+    color: rgba(230, 231, 232, 0.683);
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+.card__container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 3rem 1rem;
+
+}
