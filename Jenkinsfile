@@ -9,7 +9,7 @@ pipeline {
         DOCKER_IMAGE_NAME = '3D-Asset-Management-frontend'
         DOCKER_REPO = 'feature'
         DOCKER_REPO_MAIN = 'main'
-
+        DOCKERHUB_CREDS = credentials('dockerhub_creds')
     }
     stages {
         stage ('Install Packages') {
@@ -39,7 +39,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker_hub_login', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     script {
-                        sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+                        sh "docker login -u ${DOCKERHUB_CREDS_USR} -p ${DOCKERHUB_PSW}"
                         sh "docker image push ${DOCKER_TAG}"
                     }
                 }
@@ -66,7 +66,7 @@ pipeline {
                 echo 'RUNNING IN MAIN...'
                 withCredentials([usernamePassword(credentialsId: 'docker_hub_login', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     script {
-                        sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+                        sh "docker login -u ${DOCKERHUB_CREDS_USR} -p ${DOCKERHUB_CREDS_PSW}"
                         sh "docker image push ${DOCKER_TAG_MAIN}"
                     }
                 }
