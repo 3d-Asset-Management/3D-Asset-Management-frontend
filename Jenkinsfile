@@ -41,6 +41,8 @@ pipeline {
                     script {
                         sh "docker login -u ${DOCKERHUB_CREDS_USR} -p ${DOCKERHUB_CREDS_PSW}"
                         sh "docker image push ${DOCKER_TAG}"
+                        sh "echo ${DOCKER_IMAGE_NAME}_${DOCKER_REPO}"
+                        sh "echo ${DOCKERHUB_CREDS_USR} -p ${DOCKERHUB_CREDS_PSW}"
                     }
                 }
             }
