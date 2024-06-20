@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     def GIT_COMMIT_SHORT = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-                    env.DOCKER_TAG = "${DOCKER_IMAGE_NAME}_${DOCKER_REPO}.${GIT_COMMIT_SHORT}"
+                    env.DOCKER_TAG = "${DOCKER_IMAGE_NAME}_${DOCKER_REPO}"
                     sh "docker build -t ${DOCKER_TAG} ."
                 }
             }
