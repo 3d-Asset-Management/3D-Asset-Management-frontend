@@ -25,7 +25,9 @@ pipeline {
                 branch 'feature'
             }
             steps {
-                app = docker.build("3d-asset-management-frontend/test")    
+                script {
+                    app = docker.build("${DOCKER_IMAGE_NAME}")
+                }
             }
         }        
         stage('Push Docker Image to feature Repository') {
@@ -33,10 +35,12 @@ pipeline {
                 branch 'feature'
             }
             steps {
-                docker.withRegistry('https://registry.hub.docker.com', 'git') {            
-                    app.push("${env.BUILD_NUMBER}")            
-                    app.push("latest")        
-                }  
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDS) {            
+                        app.push("${env.BUILD_NUMBER}")            
+                        app.push("latest")        
+                    }
+                }
             }
         }
         stage('Build Docker Image for Main Branch') {
