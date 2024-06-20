@@ -25,11 +25,7 @@ pipeline {
                 branch 'feature'
             }
             steps {
-                script {
-                    def GIT_COMMIT_SHORT = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-                    env.DOCKER_TAG = "${DOCKER_IMAGE_NAME}_${DOCKER_REPO}"
-                    sh "docker build -t ${DOCKER_TAG} ."
-                }
+                app = docker.build("3d-asset-management-frontend/test")    
             }
         }        
         stage('Push Docker Image to feature Repository') {
@@ -37,14 +33,10 @@ pipeline {
                 branch 'feature'
             }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub_creds', passwordVariable: 'DOCKERHUB_CREDS_PSW', usernameVariable: 'DOCKERHUB_CREDS_USR')]) {
-                    script {
-                        sh "docker login -u ${DOCKERHUB_CREDS_USR} -p ${DOCKERHUB_CREDS_PSW}"
-                        sh "echo image : ${DOCKER_IMAGE_NAME}_${DOCKER_REPO}"
-                        sh "echo CREDS: ${DOCKERHUB_CREDS_USR} -p ${DOCKERHUB_CREDS_PSW}"
-                        sh "docker image push ${DOCKER_TAG}"
-                    }
-                }
+                docker.withRegistry('https://registry.hub.docker.com', 'git') {            
+                    app.push("${env.BUILD_NUMBER}")            
+                    app.push("latest")        
+                }  
             }
         }
         stage('Build Docker Image for Main Branch') {
