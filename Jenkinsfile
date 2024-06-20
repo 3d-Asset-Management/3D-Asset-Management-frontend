@@ -39,7 +39,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_creds', passwordVariable: 'DOCKERHUB_CREDS_PSW', usernameVariable: 'DOCKERHUB_CREDS_USR')]) {
                     script {
-                        sh "docker login -u ${DOCKERHUB_CREDS_USR} -p ${DOCKERHUB_PSW}"
+                        sh "docker login -u ${DOCKERHUB_CREDS_USR} -p ${DOCKERHUB_CREDS_PSW}"
                         sh "docker image push ${DOCKER_TAG}"
                     }
                 }
