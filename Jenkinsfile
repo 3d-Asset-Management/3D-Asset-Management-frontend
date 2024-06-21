@@ -55,7 +55,7 @@ pipeline {
                 script {
                     echo 'CLEANING UP DOCKER IMAGES...'
                     sh "docker system prune -af"
-]                }
+                }
             }
         }
         stage('Build Docker Image for Main Repository') {
