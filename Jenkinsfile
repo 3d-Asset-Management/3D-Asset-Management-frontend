@@ -51,7 +51,7 @@ pipeline {
                 script {
                     echo 'RUNNING IN MAIN...'
                     def GIT_COMMIT_SHORT = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-                    env.DOCKER_TAG_MAIN = "${DOCKER_IMAGE_NAME}_${DOCKER_REPO}.${GIT_COMMIT_SHORT}"
+                    env.DOCKER_TAG_MAIN = "${DOCKER_IMAGE_NAME}_${DOCKER_REPO_MAIN}.${GIT_COMMIT_SHORT}"
                     sh "docker build -t ${DOCKER_TAG_MAIN} ."
                 }
             }
