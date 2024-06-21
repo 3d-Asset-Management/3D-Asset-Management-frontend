@@ -1,9 +1,20 @@
+.dashboard__container{
+   background-color: #121316;
+}
 .dashboard__box {
    /* background: linear-gradient(180deg, #08090ab6 0%, rgba(16, 14, 18, 0.813) 100%);  */
-   /* backdrop-filter: blur(3px); */
+   backdrop-filter: blur(3px);
    background-color: #121316;
    padding: 0rem 6rem;
-   padding-bottom: 12rem;
    padding-top: 1.5rem;
    
+}
+
+@media (max-width: 768px) {
+   .dashboard__container{
+      overflow: hidden;
+   }
+   .dashboard__box {
+      padding: 0rem 1rem;
+   }
 }

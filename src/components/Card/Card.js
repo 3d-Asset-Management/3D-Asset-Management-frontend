@@ -1,16 +1,10 @@
 
 import './Card.css';
-// import { useState } from 'react';
+import { Link } from "react-router-dom";
 
 
 export default function Card({ title, description, srcLink}) {
-
-  
-  const handleOpen = () =>{
-    window.open(srcLink, '_blank');
-  }
  
-
   const handleMouseMove = (e, card) => {
     const x = e.pageX - card.offsetLeft;
     const y = e.pageY - card.offsetTop;
@@ -20,15 +14,18 @@ export default function Card({ title, description, srcLink}) {
 
   return (
     <>
+   
     <div class="card" style={{ '--clr': '#0f0' }} onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}>
     <div class="ModelCard" >
-    <div class="ModelCard_container-image" onClick={handleOpen}>
+    <Link to="/modelviewer" target='_blank' className='link_tag'>  
+    <div class="ModelCard_container-image" >
          <div class="ModelCard_container-image-sub">
                <div class="lazyload-wrapper ">
                   <img src={srcLink} alt='img' loading="lazy"/>
               </div>
          </div>
      </div>
+     </Link >
       <div class="ModelCard__contents__container ">
             <h3 class="text-medium">{title}</h3>
             <p class="text-small modelBox__p">{description}</p>
@@ -36,6 +33,7 @@ export default function Card({ title, description, srcLink}) {
      </div>
     </div>
     </div>
+   
     </>
   );
 }

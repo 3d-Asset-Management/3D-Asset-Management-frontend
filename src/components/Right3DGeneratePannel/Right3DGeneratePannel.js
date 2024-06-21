@@ -4,8 +4,7 @@ import { MdFileUpload } from "react-icons/md";
 import Buttons from '../Button/Button';
 import InputPromptBar from '../InputPromptBar/InputPromptBar';
 
-function Right3DGeneratePannel() {
-    const [file, setFile] = useState(null);
+function Right3DGeneratePannel({setFile, file,handleSubmit}) {
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -15,10 +14,10 @@ function Right3DGeneratePannel() {
     <div className='right3DpannelContainer'>
       <div className="container">
         <h2>Generation Attributes</h2>
-        <select className="dropdown">
-          <option value="3DAISTUDIO-V2">3DAISTUDIO-V2</option>
-          {/* Add more options if needed */}
-        </select>
+        <div className="dropdown">
+          <div value="Cato">3D Generation</div>
+        </div>
+        <form onSubmit={handleSubmit}>
         <div className="file-upload">
           <label htmlFor="fileInput" className="file-drop">
             <h1><MdFileUpload /></h1>
@@ -31,7 +30,8 @@ function Right3DGeneratePannel() {
               onChange={handleFileChange}
               style={{ display: 'none' }}
             />
-             <button className="browse-btn" onClick={() => document.getElementById('fileInput').click()}>Browse File</button>
+             <p className="browse-btn">Browse file</p>
+             <p >{file ? file.name : 'No file Choosen'}</p>
           </label>
         </div>
         <p className='OR_txt'>or</p>
@@ -42,7 +42,9 @@ function Right3DGeneratePannel() {
          <Buttons button_name={"Generate 3D Model"} />
          <span className="estimate-time">Estimated: 20 Sec | 30</span>
          </div>
+         </form>
       </div>
+     
     </div> 
   );
 }

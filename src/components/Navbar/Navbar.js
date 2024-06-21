@@ -30,10 +30,6 @@ function Navbar({button}){
                     />
                 </div>
                 </Link>
-                 
-                {/* <div className={`navbar__toggle ${isOn ? 'green' : ''}`} onClick={handleToggle}>
-                 {isOn ? <FaToggleOn className='toggleIcon' /> : <FaToggleOff className='toggleIcon' />}
-                 </div> */}
             </div>
         </nav>
         </>
