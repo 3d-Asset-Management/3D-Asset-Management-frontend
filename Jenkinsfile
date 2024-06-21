@@ -6,6 +6,8 @@ pipeline {
         githubPush()
     }
     environment {
+        REGISTRY_FEATURE = 'rgeorgegrid/3d-asset-management-frontend_feature'
+        REGISTRY_MAIN = 'rgeorgegrid/3d-asset-management-frontend_main'
         DOCKER_IMAGE_NAME = '3d-asset-management-frontend'
         DOCKER_REPO = 'feature'
         DOCKER_REPO_MAIN = 'main'
@@ -26,7 +28,7 @@ pipeline {
             }
             steps {
                 script {
-                    app = docker.build("${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}")
+                    app = docker.build("${REGISTRY_FEATURE}:${env.BUILD_NUMBER}")
                 }
             }
         }        
@@ -36,7 +38,7 @@ pipeline {
             }
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_creds') {                     
+                    docker.withRegistry('', 'dockerhub_creds') {                     
                         app.push("latest")        
                     }
                 }
