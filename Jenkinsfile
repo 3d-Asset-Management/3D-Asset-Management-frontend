@@ -16,7 +16,7 @@ pipeline {
         SSH_KEY = 'ec2_ssh_key'
     }
     stages {
-        stage ('Install Packages') {
+        stage ('Install Dependencies') {
             when {
                 branch 'feature'
             }
@@ -27,7 +27,7 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Image for Feature Repository') {
+        stage('Image Build') {
             when {
                 branch 'feature'
             }
@@ -37,7 +37,7 @@ pipeline {
                 }
             }
         }        
-        stage('Push Docker Image to Feature Repository') {
+        stage('Push to Feature Repo') {
             when {
                 branch 'feature'
             }
@@ -50,7 +50,7 @@ pipeline {
                 }
             }
         }
-        stage('Cleanup Feature Docker Images') {
+        stage('Clear Docker Cache') {
             when {
                 branch 'feature'
             }
@@ -61,7 +61,7 @@ pipeline {
                 }
             }
         }      
-        stage('Pull and Run Docker Image on EC2') {
+        stage('Pull and Run Image on Test-Server') {
             when {
                 branch 'main'
             }
@@ -71,7 +71,8 @@ pipeline {
                     sshagent (credentials: ['ec2_ssh_key']) {
                         sh """
                             ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} \\
-                                'docker login -u ${env.DOCKERHUB_CREDS_USR} -p ${env.DOCKERHUB_CREDS_PSW} && \\
+                                'sudo usermod -aG docker ubuntu && \\
+                                 docker login -u ${env.DOCKERHUB_CREDS_USR} -p ${env.DOCKERHUB_CREDS_PSW} && \\
                                  docker pull ${REGISTRY_FEATURE}:latest && \\
                                  docker stop ${DOCKER_IMAGE_NAME} || true && \\
                                  docker rm ${DOCKER_IMAGE_NAME} || true && \\
