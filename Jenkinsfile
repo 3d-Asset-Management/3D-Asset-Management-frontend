@@ -17,6 +17,9 @@ pipeline {
     }
     stages {
         stage ('Install Packages') {
+            when {
+                branch 'feature'
+            }
             steps {
                 script {
                     echo 'INSTALLING PACKAGES...'
