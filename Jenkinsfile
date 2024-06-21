@@ -15,7 +15,6 @@ pipeline {
         EC2_HOST = '34.231.249.97'
         SSH_KEY = 'ec2_ssh_key'
     }
-    }
     stages {
         stage ('Install Packages') {
             steps {
