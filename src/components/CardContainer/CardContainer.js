@@ -1,7 +1,9 @@
 import './CardContainer.css'
 import Card from '../Card/Card';
 import SearchBar from '../SearchBar/SearchBar';
-
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useState } from 'react';
  const data = [{
     title: 'Realtime Collaboration',
     description: 'Work with your team in real-time and individual.',
@@ -46,25 +48,37 @@ import SearchBar from '../SearchBar/SearchBar';
     description: 'Work with your team in real-time and create individual.',
     srcLink: 'https://spline.design/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffeature_01.2c08745d.jpg&w=1080&q=100'
  }
-
 ];
-
-export default function CardContainer() { 
-    return (
-        <div className='container'>
-            <div className='card__btns'>
-                <div className='card__btns-left'> 
-                 3D Designs
-                </div>
-              <SearchBar/>   
-            </div>
-
-            <div className='card__container'>
-
-               { data.map((item) => {
-                    return <Card id={item.key} title={item.title} description={item.description} srcLink={item.srcLink}/>
-               })}
-            </div>
-        </div>
-    );
+export default function CardContainer() {
+   const [query, setSearchTerm] = useState('');
+   const [datas, setData] = useState([]);
+   useEffect(() => {
+       if (query) {
+           axios.get(`http://localhost:8000/search`,{
+             params:{query}
+           })
+               .then(response => {
+                   setData(response.data);
+               })
+               .catch(error => {
+                   console.error('There was an error making the request!', error);
+               });
+       }
+   }, [query]);
+   console.log(datas);
+   return (
+       <div className='container'>
+           <div className='card__btns'>
+               <div className='card__btns-left'>
+                3D Designs
+               </div>
+             <SearchBar setSearchTerm={setSearchTerm}/>
+           </div>
+           <div className='card__container'>
+              { data.map((item) => {
+                   return <Card key={item.id} title={item.title} description={item.description} srcLink={item.srcLink}/>
+              })}
+           </div>
+       </div>
+   );
 }
