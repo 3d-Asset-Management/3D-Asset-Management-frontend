@@ -54,9 +54,8 @@ pipeline {
             steps {
                 script {
                     echo 'CLEANING UP DOCKER IMAGES...'
-                    sh "docker rmi ${REGISTRY_FEATURE}:${env.BUILD_NUMBER}"
-                    sh "docker rmi ${REGISTRY_FEATURE}:latest"
-                }
+                    sh "docker system prune -af"
+]                }
             }
         }
         stage('Build Docker Image for Main Repository') {
