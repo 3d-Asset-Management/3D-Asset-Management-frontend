@@ -22,7 +22,7 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Image for feature Repository') {
+        stage('Build Docker Image for Feature Repository') {
             when {
                 branch 'feature'
             }
@@ -32,7 +32,7 @@ pipeline {
                 }
             }
         }        
-        stage('Push Docker Image to feature Repository') {
+        stage('Push Docker Image to Feature Repository') {
             when {
                 branch 'feature'
             }
@@ -44,16 +44,13 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Image for Main Branch') {
+        stage('Build Docker Image for Main Repository') {
             when {
                 branch 'main'
             }
             steps {
                 script {
-                    echo 'RUNNING IN MAIN...'
-                    def GIT_COMMIT_SHORT = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-                    env.DOCKER_TAG_MAIN = "${DOCKER_IMAGE_NAME}_${DOCKER_REPO_MAIN}:${GIT_COMMIT_SHORT}"
-                    sh "docker build -t ${DOCKER_TAG_MAIN} ."
+                    app = docker.build("${REGISTRY_MAIN}:${env.BUILD_NUMBER}")
                 }
             }
         }        
@@ -62,11 +59,9 @@ pipeline {
                 branch 'main'
             }
             steps {
-                echo 'RUNNING IN MAIN...'
-                withCredentials([usernamePassword(credentialsId: 'dockerhub_creds', passwordVariable: 'DOCKERHUB_CREDS_PSW', usernameVariable: 'DOCKERHUB_CREDS_USR')]) {
-                    script {
-                        sh "docker login -u ${DOCKERHUB_CREDS_USR} -p ${DOCKERHUB_CREDS_PSW}"
-                        sh "docker image push ${DOCKER_TAG_MAIN}"
+                script {
+                    docker.withRegistry('', 'dockerhub_creds') {                     
+                        app.push("latest")        
                     }
                 }
             }
