@@ -57,17 +57,7 @@ pipeline {
                     sh "docker system prune -af"
                 }
             }
-        }
-        stage('Build Docker Image for Main Repository') {
-            when {
-                branch 'main'
-            }
-            steps {
-                script {
-                    app = docker.build("${REGISTRY_MAIN}:${env.BUILD_NUMBER}")
-                }
-            }
-        }        
+        }      
         stage('Pull and Run Docker Image on EC2') {
             when {
                 branch 'main'
@@ -79,10 +69,10 @@ pipeline {
                         sh """
                             ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} \\
                                 'docker login -u ${env.DOCKERHUB_CREDS_USR} -p ${env.DOCKERHUB_CREDS_PSW} && \\
-                                 docker pull ${REGISTRY_MAIN}:latest && \\
+                                 docker pull ${REGISTRY_FEATURE}:latest && \\
                                  docker stop ${DOCKER_IMAGE_NAME} || true && \\
                                  docker rm ${DOCKER_IMAGE_NAME} || true && \\
-                                 docker run -d --name ${DOCKER_IMAGE_NAME} -p 80:80 ${REGISTRY_MAIN}:latest'
+                                 docker run -d --name ${DOCKER_IMAGE_NAME} -p 80:80 ${REGISTRY_FEATURE}:latest'
                         """
                     }
                 }
