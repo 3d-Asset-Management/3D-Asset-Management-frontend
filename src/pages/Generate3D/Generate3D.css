@@ -1,5 +1,13 @@
 .generate3D__box{
   width: 100%;
-  height: auto;
+  height: 100vh;
   display: flex;
+}
+
+@media (max-width: 768px) {
+  .generate3D__box{
+    flex-direction: column-reverse;
+    overflow: hidden;
+  }
+  
 }

@@ -39,6 +39,7 @@
     border: 2px dashed #6a6a6a;
     border-radius: 5px;
     cursor: pointer;
+    background: #222222;
   }
   
   .browse-btn{
@@ -63,7 +64,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 6rem;
+    margin-bottom: 4rem;
   }
   
   .GenerateRightPannel__bottom__bar .btn{
@@ -76,4 +77,11 @@
   .estimate-time {
     font-size: 0.7rem;
     color: #aaa;
+  }
+
+  @media (max-width: 768px){
+     .right3DpannelContainer{
+        width:auto;
+        padding: 1rem 2rem;
+     }
   }
