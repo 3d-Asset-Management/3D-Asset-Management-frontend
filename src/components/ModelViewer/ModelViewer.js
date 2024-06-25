@@ -7,6 +7,7 @@ import { useState, useRef } from 'react';
 import AccountMenu from './settingMenu';
 import { AiFillHome } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom'
+import Loader from '../Loader/Loader';
 
 
 export default function ModelViewer({PannelRightDisplay=true}) {
@@ -18,6 +19,7 @@ export default function ModelViewer({PannelRightDisplay=true}) {
   const [bgOptions, set3dBgOptions] = useState('sunset');
   const [BgOnModel, setBgOnModel] = useState(false);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   
   // const [reset, setReset] = useState(false);
 
@@ -47,6 +49,7 @@ export default function ModelViewer({PannelRightDisplay=true}) {
         <div className="top-right">
            <AccountMenu setBgOnModel={setBgOnModel} set3dBgOptions={set3dBgOptions} />
         </div>
+          {loading && <Loader />}
         <CanvasView 
             modelRef={modelRef} 
             wireframe={wireframe}
@@ -55,7 +58,9 @@ export default function ModelViewer({PannelRightDisplay=true}) {
             autoRotate={autoRotate} 
             bgOptions={bgOptions} 
             BgOnModel={BgOnModel}
+            setLoading={setLoading}
          />
+         
       </div>
       {PannelRightDisplay && !zoom && (
         <div className="right__modal">
