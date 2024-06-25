@@ -76,7 +76,8 @@ pipeline {
                                  docker pull ${REGISTRY_FEATURE}:latest && \\
                                  docker stop ${DOCKER_IMAGE_NAME} || true && \\
                                  docker rm ${DOCKER_IMAGE_NAME} || true && \\
-                                 docker run -d --name ${DOCKER_IMAGE_NAME} -p 3000:3000 --restart unless-stopped ${REGISTRY_FEATURE}:latest'
+                                 docker run -d --name ${DOCKER_IMAGE_NAME} -p 3000:3000 --restart unless-stopped ${REGISTRY_FEATURE}:latest' || true && \\
+                                 docker system prune -af
                         """
                     }
                 }
