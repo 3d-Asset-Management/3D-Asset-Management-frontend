@@ -9,14 +9,14 @@ import axios from 'axios';
 function Generate3D() {
   const [file, setFile] = useState(null);
   const [filePath, setFilePath] = useState('');
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const url = 'http://localhost:5000/upload';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('photo', file);
-    setLoading(true);
+    // setLoading(true);
     console.log('formData', formData);
     try {
       const response = await axios.post(url, formData, {
@@ -29,18 +29,17 @@ function Generate3D() {
     } catch (error) {
       console.error('Error uploading file:', error);
     }
-    setLoading(false);
+    // setLoading(false);
   };
+
   return (
     <div className='generate3D__box'>
-      {/* { loading && <Loader/>} */}
        <ModelViewer  PannelRightDisplay={false} className='generate3D__box-left'/>
       <Right3DGeneratePannel 
        setFile={setFile}
        file={file}
        handleSubmit={handleSubmit}
-       />
-       
+       /> 
     </div>
   );
 }
