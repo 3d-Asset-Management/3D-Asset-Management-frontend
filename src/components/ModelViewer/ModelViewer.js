@@ -1,33 +1,29 @@
-
+import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PannelRight from './ModelViewerPannel/PannelRight';
 import './ModelViewer.css';
 import CanvasView from './CanvasView/CanvasView';
 import { MdZoomOutMap, MdZoomInMap } from 'react-icons/md';
-import { useState, useRef } from 'react';
 import AccountMenu from './settingMenu';
 import { AiFillHome } from "react-icons/ai";
-import { useNavigate } from 'react-router-dom'
 import Loader from '../Loader/Loader';
 
-
-export default function ModelViewer({PannelRightDisplay=true}) {
+export default function ModelViewer({ PannelRightDisplay = true, s3FilePath }) {
   const [zoom, setZoom] = useState(false);
   const [autoRotate, setAutoRotate] = useState(true);
   const [wireframe, setWireframe] = useState(false);
   const [axes, setAxes] = useState(false);
-  const [grid, setGrid] = useState(false);
-  const [bgOptions, set3dBgOptions] = useState('sunset');
+  const [grid, setGrid] = useState(true);
+  const [bgOptions, setBgOptions] = useState('sunset');
   const [BgOnModel, setBgOnModel] = useState(false);
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  
-  // const [reset, setReset] = useState(false);
+
+  const navigate = useNavigate();
+  const modelRef = useRef();
 
   const handleZoomClick = () => {
-    setZoom((zoom) => !zoom);
+    setZoom(prevZoom => !prevZoom);
   };
-
-  const modelRef = useRef();
 
   const handleDownloadClick = () => {
     if (modelRef.current) {
@@ -35,32 +31,50 @@ export default function ModelViewer({PannelRightDisplay=true}) {
     }
   };
 
- 
+  const handleReset = () => {
+    setZoom(false);
+    setAutoRotate(true);
+    setWireframe(false);
+    setAxes(false);
+    setGrid(true);
+    setBgOptions('sunset');
+    setBgOnModel(false);
+    setLoading(true);
+  };
+
   return (
     <div className="Model-container">
       <div className="viewer">
-        {PannelRightDisplay && <div className="top-left" onClick={handleZoomClick}>
-          {zoom ? <MdZoomInMap />:<MdZoomOutMap />}
-        </div>}
+        {PannelRightDisplay && (
+          <div className="top-left" onClick={handleZoomClick}>
+            {zoom ? <MdZoomInMap /> : <MdZoomOutMap />}
+          </div>
+        )}
 
-        {!PannelRightDisplay && <div className="top-left" onClick={() => { navigate("/")}}>
-          {<AiFillHome />}
-        </div>}
+        {!PannelRightDisplay && (
+          <div className="top-left" onClick={() => { navigate("/") }}>
+            {<AiFillHome />}
+          </div>
+        )}
         <div className="top-right">
-           <AccountMenu setBgOnModel={setBgOnModel} set3dBgOptions={set3dBgOptions} />
+          <AccountMenu 
+            setBgOnModel={setBgOnModel} 
+            set3dBgOptions={setBgOptions} 
+            handleReset={handleReset} 
+          />
         </div>
-          {loading && <Loader />}
-        <CanvasView 
-            modelRef={modelRef} 
-            wireframe={wireframe}
-            axes={axes} 
-            grid={grid} 
-            autoRotate={autoRotate} 
-            bgOptions={bgOptions} 
-            BgOnModel={BgOnModel}
-            setLoading={setLoading}
-         />
-         
+        {loading && <Loader />}
+        <CanvasView
+          modelRef={modelRef}
+          wireframe={wireframe}
+          axes={axes}
+          grid={grid}
+          autoRotate={autoRotate}
+          bgOptions={bgOptions}
+          BgOnModel={BgOnModel}
+          setLoading={setLoading}
+          s3FilePath={s3FilePath}
+        />
       </div>
       {PannelRightDisplay && !zoom && (
         <div className="right__modal">

@@ -4,7 +4,7 @@ import Model from '../../Model/Model';
 
 export default function CanvasView({modelRef, wireframe, axes, grid, autoRotate, bgOptions, BgOnModel,setLoading}) {
     let gridSize = 8;
-  
+    // const { objPath, mtlPath, texturePath } = useModelPaths(s3FilePath);
      return(
       <>
         <Canvas camera={{ position: [-9, 5, 3], fov: 90 }}>
@@ -25,9 +25,12 @@ export default function CanvasView({modelRef, wireframe, axes, grid, autoRotate,
       
         <Model
           ref={modelRef}
-          objPath="/coke_can/model.obj"
-          mtlPath="/coke_can/model.mtl"
-          texturePath="/coke_can/texture.jpg"
+          // objPath={objPath}
+          // mtlPath={mtlPath}
+          // texturePath={texturePath}
+          objPath="/coke_can/model.obj"   //for trails
+          mtlPath="/coke_can/model.mtl"   //for trails
+          texturePath="/coke_can/texture.jpg"  //for trails
           gridSize={9}
           position={[0, 0, 0]}
           wireframe={wireframe}

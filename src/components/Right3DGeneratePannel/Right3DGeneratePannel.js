@@ -8,6 +8,7 @@ function Right3DGeneratePannel({setFile, file,handleSubmit}) {
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
+   
   };
 
   return (
@@ -26,7 +27,7 @@ function Right3DGeneratePannel({setFile, file,handleSubmit}) {
             <input 
               id="fileInput" 
               type="file" 
-              accept=".jpg,.png" 
+              accept=".jpg,.png,.jpeg" 
               onChange={handleFileChange}
               style={{ display: 'none' }}
             />
@@ -39,7 +40,7 @@ function Right3DGeneratePannel({setFile, file,handleSubmit}) {
             <InputPromptBar />
          </div>
         <div className="GenerateRightPannel__bottom__bar">
-         <Buttons button_name={"Generate 3D Model"} />
+         <Buttons button_name={"Generate 3D Model"} type="submit"/>
          <span className="estimate-time">Estimated: 20 Sec | 30</span>
          </div>
          </form>

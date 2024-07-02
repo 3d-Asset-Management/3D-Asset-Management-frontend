@@ -6,9 +6,9 @@ import { TextureLoader, Box3, Vector3 } from 'three';
 import { OBJExporter } from 'three/examples/jsm/exporters/OBJExporter';
 import { saveAs } from 'file-saver';
 
-const Model = forwardRef(({ objPath, mtlPath, texturePath, gridSize, wireframe ,setLoading}, ref) => {
+const Model = forwardRef(({ objPath, mtlPath, texturePath, gridSize, wireframe, setLoading }, ref) => {
   const { scene } = useThree();
- 
+
   // Load materials first
   const materials = useLoader(MTLLoader, mtlPath);
   materials.preload();
@@ -30,13 +30,12 @@ const Model = forwardRef(({ objPath, mtlPath, texturePath, gridSize, wireframe ,
         child.material.needsUpdate = true;
         child.material.wireframe = wireframe;
       }
-      
     });
     if (mesh.current) {
       scene.add(mesh.current);
     }
     setLoading(false);
-  }, [obj, texture, wireframe, scene]);
+  }, [obj, texture, wireframe, scene, setLoading]);
 
   useEffect(() => {
     if (mesh.current) {
