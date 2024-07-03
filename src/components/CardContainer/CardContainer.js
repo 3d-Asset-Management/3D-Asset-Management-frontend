@@ -1,83 +1,31 @@
 import './CardContainer.css'
 import Card from '../Card/Card';
 import SearchBar from '../SearchBar/SearchBar';
-import axios from 'axios';
-import { useEffect } from 'react';
-import { useState } from 'react';
- const data = [{
-    title: 'Realtime Collaboration',
-    description: 'Work with your team in real-time and individual.',
-    srcLink: 'https://spline.design/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffeature_01.2c08745d.jpg&w=1080&q=100'
- },
- {
-    title: '3D Modeling',
-    description: 'Parametric objects, polygonal editing, and more.',
-    srcLink: 'https://spline.design/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffeature_02.cc4a57dc.jpg&w=1080&q=100'
- },
- {
-    title: 'Animation',
-    description: 'Give life to your 3d objects.',
-    srcLink: 'https://spline.design/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffeature_03.651311c1.jpg&w=1080&q=100'
- },
- {
-    title: 'Interactive Experiences',
-    description: 'Enable interactivity on your objects.',
-    srcLink: 'https://spline.design/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffeature_04.09ef23fc.jpg&w=1080&q=100'
- },
- {
-    title: 'Material Layers',
-    description: 'Fine-tune the look of your models.',
-    srcLink: 'https://spline.design/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffeature_05_b.765e9f35.jpg&w=1080&q=100'
- },
- {
-    title: '3D Sculpting',
-    description: 'Create organic shapes.',
-    srcLink: 'https://spline.design/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffeature_06.6ca66f8a.jpg&w=1080&q=100'
- },
- {
-    title: 'Physics',
-    description: 'Create real-time physics simulations and interactions.',
-    srcLink: 'https://spline.design/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffeature_07.f5573995.jpg&w=1080&q=100'
- },
- {
-    title: 'Game Controls',
-    description: 'Easily create 3rd person and 1st person experiences.',
-    srcLink: 'https://spline.design/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffeature_08.b1c27e87.jpg&w=1080&q=100'
- },{
-    title: 'Realtime Collaboration',
-    description: 'Work with your team in real-time and create individual.',
-    srcLink: 'https://spline.design/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffeature_01.2c08745d.jpg&w=1080&q=100'
- }
-];
+import useFetchData from '../../Hooks/useFetchData';
+
+ 
 export default function CardContainer() {
-   const [query, setSearchTerm] = useState('');
-   const [datas, setData] = useState([]);
-   useEffect(() => {
-       if (query) {
-           axios.get(`http://localhost:8000/search`,{
-             params:{query}
-           })
-               .then(response => {
-                   setData(response.data);
-               })
-               .catch(error => {
-                   console.error('There was an error making the request!', error);
-               });
-       }
-   }, [query]);
-   console.log(datas);
+   const initialUrl='https://mocki.io/v1/a2318a2b-f314-4b6d-9edf-4d5eefcc895a';
+   const searchUrl = 'https://fakestoreapi.com/products/';
+   
+   const { data, loading, error, setQuery } = useFetchData(initialUrl, searchUrl);
    return (
        <div className='container'>
            <div className='card__btns'>
                <div className='card__btns-left'>
                 3D Designs
                </div>
-             <SearchBar setSearchTerm={setSearchTerm}/>
+             <SearchBar setQuery={setQuery}/>
            </div>
            <div className='card__container'>
-              { data.map((item) => {
-                   return <Card key={item.id} title={item.title} description={item.description} srcLink={item.srcLink}/>
-              })}
+              { data.map((item) => (
+                 <Card 
+                    key={item.id} 
+                    title={item.title.slice(0,15)}
+                    description={item.description.slice(0,90)} 
+                    srcLink={item.image}
+                 />
+              ))}
            </div>
        </div>
    );

@@ -1,12 +1,14 @@
 import './SearchBar.css';
 import { CiSearch } from "react-icons/ci";
 import { useState } from 'react';
-function Searchbar({setSearchTerm }) {
+
+function Searchbar({setQuery }) {
   const [inputValue,setInputValue] = useState('');
+
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      setSearchTerm(event.target.value);
+      setQuery(inputValue.trim());
     }
   };
  const handleInputChange =(e)=>{
