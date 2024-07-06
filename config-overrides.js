@@ -19,3 +19,18 @@ module.exports = function override(config, env) {
     return config;
   };
   
+  // webpack.config.js
+module.exports = {
+  // ... other configurations
+  resolve: {
+    fallback: {
+      "child_process": false,
+      "fs": false,
+      "path": require.resolve("path-browserify"),
+      "crypto": require.resolve("crypto-browserify"),
+      "stream": require.resolve("stream-browserify"),
+      "https": require.resolve("https-browserify"),
+      "http": require.resolve("stream-http")
+    }
+  }
+};

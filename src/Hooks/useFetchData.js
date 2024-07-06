@@ -12,10 +12,10 @@ const useFetchData = (initialUrl, searchUrl, initialQuery = '') => {
       try {
 
         setLoading(true);
-        const response = await axios.get(query ? searchUrl+query : initialUrl);
-     //    const response = await axios.get(query ? searchUrl : initialUrl,{
-     //      params:{query}
-     //    })
+        // const response = await axios.get(query ? searchUrl+query : initialUrl);
+        const response = await axios.get(query ? searchUrl : initialUrl,{
+          params:{query}
+        })
         console.log('API response:', response.data); 
         setData(Array.isArray(response.data) ? response.data : [response.data]);
 
@@ -30,7 +30,7 @@ const useFetchData = (initialUrl, searchUrl, initialQuery = '') => {
     };
 
     fetchData();
-  }, [ searchUrl, query]);
+  }, [initialUrl, searchUrl, query]);
 
   return { data, loading, error, setQuery };
 };

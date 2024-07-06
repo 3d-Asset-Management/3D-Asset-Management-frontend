@@ -1,69 +1,94 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const useGenerate3D = () => {
-  // States    
+const useGenerate3D = (genUrl) => {
   const [file, setFile] = useState(null);
   const [filePath, setFilePath] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState('');
+  const [loading,setLoading] = useState(false);
 
-  // URLs of server
-  const url = 'http://localhost:5000/upload';
-  const statusUrl = 'http://localhost:5000/status';
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const handleSubmit = async (file) => {
+    if (!file) {
+      alert("Please select a file first!");
+      return;
+    }
     setLoading(true);
+    //-- background remover ------------------------------------------------------------//
     const api_key = process.env.REACT_APP_API_BG;
+    const apiUrl = "https://api.remove.bg/v1.0/removebg";
+    const formData = new FormData();
+    formData.append("image_file", file, file.name);
+    formData.append("size", 'auto');
+
     try {
-      const formData = new FormData();
-      formData.append('image', file);
-
-      // Background remover
-      const res = await axios.post("https://api.remove.bg/v1.0/removebg", formData, {
+      const res = await fetch(apiUrl, {
+        method: 'POST',
         headers: {
-          "X-Api-Key": api_key,
+          'X-Api-Key': api_key,
         },
-        responseType: 'blob', // Specify the response type as blob
+        body: formData,
       });
 
-      const processedFormData = new FormData();
-      processedFormData.append('image', res.data);
+      const blobFile = await res.blob();
+      // const imageUrl = URL.createObjectURL(blobFile);
+      console.log(blobFile);
 
-      const response = await axios.post(url, processedFormData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+      // ---file that to be send to model generation api -----------------------------------------//
+      const formData1 = new FormData();
+      formData1.append('img_id', "student");
+      formData1.append('file', file); // key is file
 
-      if (response) {
-        setFilePath(response.data.filePath);
-        setTimeout(checkStatus, 8 * 60 * 1000); // Start checking status after 8 minutes
+      try {
+        const response = await axios.post(`${genUrl}/generate_3d`, formData1, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+
+        console.log(response.data);
+        setFilePath(response.data);
+        const bucketName = response.data.bucket_name;
+        const imgId = response.data.img_id;
+
+        const formData2 = new FormData();
+        formData2.append('bucket_name', bucketName);
+        formData2.append('img_id', imgId); // key is file
+        setTimeout(() => checkStatus(formData2), 6000); // Start checking status after 6 sec
+      } catch (error) {
+        console.error('Error uploading file:', error);
       }
     } catch (error) {
-      console.error('Error uploading file:', error);
+      console.log(error);
     }
-    setLoading(false);
   };
 
-  const checkStatus = async () => {
+  // function to check whether model is prepared or not
+  const checkStatus = async (formData2) => {
     try {
-      const response = await axios.get(`${statusUrl}?filePath=${filePath}`);
-
-      if (response.data.status === 'prepared') {
-        setStatus('Model is prepared');
+      const response = await axios.post(`${genUrl}/frontend_recursive`,formData2,{
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      
+      console.log(response);
+      if (response.data.status === '1') {
+        //sucessfull 
         setLoading(false);
+        console.log("preparation done----------purvesh se maghlo");
+        // do something
       } else {
-        // Check again in 30 seconds
-        setTimeout(checkStatus, 30 * 1000);
+        console.log("preparation chal raha he ....");
+        setTimeout(() => checkStatus(formData2), 30 * 1000); // Check again in 30 seconds
       }
     } catch (error) {
       console.error('Error checking status:', error);
-      setTimeout(checkStatus, 30 * 1000);
+      setTimeout(() => checkStatus(formData2), 30 * 1000);
     }
   };
 
-  return { file, setFile, filePath, loading, handleSubmit, status };
+  return { setFile, file, handleSubmit, filePath ,loading};
 };
 
 export default useGenerate3D;

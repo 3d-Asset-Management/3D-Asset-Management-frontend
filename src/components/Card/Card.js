@@ -1,10 +1,11 @@
 
 import './Card.css';
 import { Link } from "react-router-dom";
+import useModelFiles from '../../Hooks/useModelFiles'
 
 
-export default function Card({ title, description, srcLink}) {
- 
+export default function Card({ title, description, img_id}) {
+  const {imgUrl} = useModelFiles(img_id);
   const handleMouseMove = (e, card) => {
     const x = e.pageX - card.offsetLeft;
     const y = e.pageY - card.offsetTop;
@@ -21,7 +22,7 @@ export default function Card({ title, description, srcLink}) {
     <div class="ModelCard_container-image" >
          <div class="ModelCard_container-image-sub">
                <div class="lazyload-wrapper ">
-                  <img src={srcLink} alt='img' loading="lazy"/>
+                  <img src={imgUrl} alt='img' loading="lazy"/>
               </div>
          </div>
      </div>
