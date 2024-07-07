@@ -5,8 +5,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import WallpaperIcon from '@mui/icons-material/Wallpaper';
 import ResetTvIcon from '@mui/icons-material/ResetTv';
 import { Settings } from '@mui/icons-material';
+import CloseIcon from '@mui/icons-material/Close';
 
-export default function AccountMenu({setBgOnModel, set3dBgOptions , setReset}) {
+export default function AccountMenu({setBgOnModel, set3dBgOptions, handleReset}) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [backgroundMenuAnchorEl, setBackgroundMenuAnchorEl] = useState(null);
 
@@ -23,9 +24,9 @@ export default function AccountMenu({setBgOnModel, set3dBgOptions , setReset}) {
     setBackgroundMenuAnchorEl(event.currentTarget);
   };
 
-  const handleBackgroundMenuClose = () => {
-    setBackgroundMenuAnchorEl(null);
-  };
+  // const handleBackgroundMenuClose = () => {
+  //   setBackgroundMenuAnchorEl(null);
+  // };
 
   return (
     <div>
@@ -47,7 +48,7 @@ export default function AccountMenu({setBgOnModel, set3dBgOptions , setReset}) {
         <Menu
           anchorEl={backgroundMenuAnchorEl}
           open={Boolean(backgroundMenuAnchorEl)}
-          onClose={handleBackgroundMenuClose}
+          onClose={handleMenuClose}
           anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
           transformOrigin={{ horizontal: 'left', vertical: 'top' }}
         >
@@ -82,11 +83,17 @@ export default function AccountMenu({setBgOnModel, set3dBgOptions , setReset}) {
             Forest
           </MenuItem>
         </Menu>
-        <MenuItem onClick={handleMenuClose}>
+        <MenuItem onClick={()=> {handleReset()}}>
           <ListItemIcon>
             <ResetTvIcon fontSize="small" />
           </ListItemIcon>
           Reset
+        </MenuItem>
+        <MenuItem onClick={handleMenuClose}>
+          <ListItemIcon>
+            <CloseIcon fontSize="small" />
+          </ListItemIcon>
+         Close
         </MenuItem>
       </Menu>
     </div>
