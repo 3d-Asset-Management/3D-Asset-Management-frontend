@@ -5,7 +5,7 @@ const useGenerate3D = (genUrl) => {
   const [file, setFile] = useState(null);
   const [filePath, setFilePath] = useState('');
   const [loading,setLoading] = useState(false);
-
+  let answer;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -20,7 +20,7 @@ const useGenerate3D = (genUrl) => {
     const formData = new FormData();
     formData.append("image_file", file, file.name);
     formData.append("size", 'auto');
-
+   
     try {
       const res = await fetch(apiUrl, {
         method: 'POST',
@@ -36,7 +36,7 @@ const useGenerate3D = (genUrl) => {
 
       // ---file that to be send to model generation api -----------------------------------------//
       const formData1 = new FormData();
-      formData1.append('img_id', "student");
+      formData1.append('img_id', "coke");
       formData1.append('file', file); // key is file
 
       try {
@@ -47,7 +47,7 @@ const useGenerate3D = (genUrl) => {
         });
 
         console.log(response.data);
-        setFilePath(response.data);
+        answer = response.data.img_id;
         const bucketName = response.data.bucket_name;
         const imgId = response.data.img_id;
 
@@ -76,7 +76,9 @@ const useGenerate3D = (genUrl) => {
       if (response.data.status === '1') {
         //sucessfull 
         setLoading(false);
-        console.log("preparation done----------purvesh se maghlo");
+        console.log("preparation done-");
+        setFilePath(answer);
+        
         // do something
       } else {
         console.log("preparation chal raha he ....");

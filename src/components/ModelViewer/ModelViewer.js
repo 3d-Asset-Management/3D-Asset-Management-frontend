@@ -6,17 +6,15 @@ import CanvasView from './CanvasView/CanvasView';
 import { MdZoomOutMap, MdZoomInMap } from 'react-icons/md';
 import AccountMenu from './settingMenu';
 import { AiFillHome } from "react-icons/ai";
-import Loader from '../Loader/Loader';
 
 export default function ModelViewer({ PannelRightDisplay = true, s3FilePath }) {
   const [zoom, setZoom] = useState(false);
-  const [autoRotate, setAutoRotate] = useState(true);
+  const [autoRotate, setAutoRotate] = useState(PannelRightDisplay);
   const [wireframe, setWireframe] = useState(false);
   const [axes, setAxes] = useState(false);
-  const [grid, setGrid] = useState(true);
+  const [grid, setGrid] = useState(PannelRightDisplay);
   const [bgOptions, setBgOptions] = useState('sunset');
   const [BgOnModel, setBgOnModel] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
   const modelRef = useRef();
@@ -39,7 +37,7 @@ export default function ModelViewer({ PannelRightDisplay = true, s3FilePath }) {
     setGrid(true);
     setBgOptions('sunset');
     setBgOnModel(false);
-    setLoading(true);
+
   };
 
   return (
@@ -63,7 +61,7 @@ export default function ModelViewer({ PannelRightDisplay = true, s3FilePath }) {
             handleReset={handleReset} 
           />
         </div>
-        {loading && <Loader />}
+        {/* {loading && <Loader />} */}
         <CanvasView
           modelRef={modelRef}
           wireframe={wireframe}
@@ -72,7 +70,6 @@ export default function ModelViewer({ PannelRightDisplay = true, s3FilePath }) {
           autoRotate={autoRotate}
           bgOptions={bgOptions}
           BgOnModel={BgOnModel}
-          setLoading={setLoading}
           s3FilePath={s3FilePath}
         />
       </div>

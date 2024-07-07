@@ -4,10 +4,11 @@ import './Generate3D.css';
 import useGenerate3D from '../../Hooks/useGenerate3D';
 
 function Generate3D() {
-  const genUrl = 'https://2u3iix6invpocn-8000.proxy.runpod.net';
-
+  // const genUrl = process.env.REACT_APP_MASTER_URL;
+  const genUrl='http://127.0.0.1:8000';
+ 
   const {setFile,file,handleSubmit,filePath,loading} = useGenerate3D(genUrl)
-
+  console.log(filePath);
   return (
     <div className='generate3D__box'>
        <ModelViewer 

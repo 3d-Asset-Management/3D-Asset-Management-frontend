@@ -1,32 +1,37 @@
-
-import './Card.css';
 import { Link } from "react-router-dom";
 import useModelFiles from '../../Hooks/useModelFiles'
+import './Card.css';
 
 
-export default function Card({ title, description, img_id}) {
+export default function Card({ title, description, img_id,setLoading}) {
   const {imgUrl} = useModelFiles(img_id);
+  setLoading(false);
+  
   const handleMouseMove = (e, card) => {
     const x = e.pageX - card.offsetLeft;
     const y = e.pageY - card.offsetTop;
     card.style.setProperty('--x', `${x}px`);
     card.style.setProperty('--y', `${y}px`);
   };
-
+  const data = img_id;
   return (
     <>
-   
     <div class="card" style={{ '--clr': '#0f0' }} onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}>
     <div class="ModelCard" >
-    <Link to="/modelviewer" target='_blank' className='link_tag'>  
-    <div class="ModelCard_container-image" >
-         <div class="ModelCard_container-image-sub">
-               <div class="lazyload-wrapper ">
-                  <img src={imgUrl} alt='img' loading="lazy"/>
-              </div>
-         </div>
-     </div>
-     </Link >
+    <Link 
+       to={`/modelviewer/${data}`}
+      state={{ fromHome: { data } }}
+      target='_blank'
+      className='link_tag'
+    >
+        <div className="ModelCard_container-image">
+          <div className="ModelCard_container-image-sub">
+            <div className="lazyload-wrapper">
+              <img src={imgUrl} alt='img' loading="lazy"/>
+            </div>
+          </div>
+        </div>
+      </Link>
       <div class="ModelCard__contents__container ">
             <h3 class="text-medium">{title}</h3>
             <p class="text-small modelBox__p">{description}</p>
