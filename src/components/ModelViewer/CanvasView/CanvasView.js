@@ -54,7 +54,13 @@ export default function CanvasView({ modelRef, wireframe, axes, grid, autoRotate
 
         {axes && <axesHelper args={[100]} position={[0, 0, 0]} />}
         
-        {!isMobile && <OrbitControls autoRotate={autoRotate} />}
+        <OrbitControls 
+          autoRotate={autoRotate} 
+          enableZoom={!isMobile} 
+          touchRotate={!isMobile}
+          touchZoom={!isMobile}
+          touchPan={!isMobile}
+        />
         
         <ContactShadows rotation-x={Math.PI / 2} opacity={0.9} width={9} height={9} blur={100} />
         {BgOnModel && <Environment preset={bgOptions} background />}
