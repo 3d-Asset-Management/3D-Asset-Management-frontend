@@ -1,12 +1,15 @@
 import './PannelRight.css';
 import Button from '../../Button/Button';
+import useFetchMetadata from '../../../Hooks/useFetchMetadata'
 import { IoMdDownload } from "react-icons/io";
 import { BsToggleOff } from "react-icons/bs";
 import { BsToggleOn } from "react-icons/bs";
 import { useParams } from 'react-router-dom';
 
 export default function PannelRight({autoRotate, setAutoRotate, wireframe, setWireframe, axes, setAxes, grid, setGrid,handleDownloadClick}) {
-    const { data } = useParams(); 
+    const { id } = useParams(); 
+    const {fetchedData} = useFetchMetadata(id);
+
     return (
         <>
            <div className="Modal__Pannel__right">
@@ -42,20 +45,30 @@ export default function PannelRight({autoRotate, setAutoRotate, wireframe, setWi
                                     </div>
                                     <div className='modal__controls__box__item'>
                                         <label>File Name</label>
-                                        <label>{data}</label>
+                                        <label>{fetchedData && fetchedData.img_id}</label>
                                     </div>
                                     <div className='modal__controls__box__item'>
                                         <label>File Type</label>
-                                        <label>obj</label>
+                                        <label>Obj</label>
                                     </div>
+                                    
                                     <div className='modal__controls__box__item'>
-                                        <label>File Size</label>
-                                        <label>5MB</label>
-                                        
+                                        <label>Category</label>
+                                        <label>{fetchedData && fetchedData.category}</label>
                                     </div>   
                                     <div className='modal__controls__box__item'>
+                                        <label>Sub-Category</label>
+                                        <label>{fetchedData && fetchedData.subcategory}</label>
+                                    </div> 
+                                    <div className='modal__controls__box__item'>
                                         <label>Date of creation</label>
-                                        <label>June 5, 2024</label> 
+                                      <label>{fetchedData.date ? 
+                                            (fetchedData.date.includes(',') ? 
+                                                fetchedData.date.split(',').slice(-1).join('') : 
+                                                fetchedData.date
+                                            ) : 
+                                            'Date not available'
+                                        }</label> 
                                     </div>   
                             </div>
                  </div>

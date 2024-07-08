@@ -6,6 +6,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: #191319f0;
+    overflow: hidden;
   }
   .Model-container .viewer{
     width: 70%;

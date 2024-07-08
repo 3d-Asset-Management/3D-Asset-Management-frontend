@@ -17,6 +17,7 @@ export default function CardContainer({data,setLoading, setQuery}) {
               { data.map((item) => (
                  <Card 
                     key={item.unique_id} 
+                    id={item.unique_id}
                     title={item.img_id.slice(0,15).toUpperCase()}
                     description={item.description.slice(0,85)+'....'} 
                     img_id={item.img_id}

@@ -12,7 +12,7 @@ function App() {
        <Routes>
           <Route path="/" element={<Dashboard/>} />
           <Route path="/generate3D"  element={<Generate3D/>} />
-          <Route path="/modelviewer/:data" element={<ModelView/>} />
+          <Route path="/modelviewer/:data/:id" element={<ModelView/>} />
           <Route path="*" element={<PageNotFound/>} />
        </Routes>
     </div>
