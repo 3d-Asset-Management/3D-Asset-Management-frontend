@@ -3,11 +3,10 @@ import useModelFiles from '../../Hooks/useModelFiles'
 import './Card.css';
 
 
-export default function Card({ title, description, img_id,setLoading}) {
+export default function Card({ id,title, description, img_id,setLoading}) {
 
   const {imgUrl} = useModelFiles(img_id);
   setLoading(false);
-  
   const handleMouseMove = (e, card) => {
     const x = e.pageX - card.offsetLeft;
     const y = e.pageY - card.offsetTop;
@@ -15,12 +14,13 @@ export default function Card({ title, description, img_id,setLoading}) {
     card.style.setProperty('--y', `${y}px`);
   };
   const data = img_id;
+ 
   return (
     <>
     <div class="card" style={{ '--clr': '#0f0' }} onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}>
     <div class="ModelCard" >
     <Link 
-       to={`/modelviewer/${data}`}
+       to={`/modelviewer/${data}/${id}`}
       state={{ fromHome: { data } }}
       target='_blank'
       className='link_tag'

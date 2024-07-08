@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment, ContactShadows, Grid } from '@react-three/drei';
 import Model from '../../Model/Model';

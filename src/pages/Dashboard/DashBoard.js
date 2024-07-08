@@ -6,7 +6,7 @@ import useFetchData from '../../Hooks/useFetchData';
 import Loader from '../../components/Loader/Loader';
 import './Dashboard.css';
 function Dashboard() {
-   const baseURL = process.env.REACT_APP_MASTER_URL
+   const baseURL = process.env.REACT_APP_MASTER_URL_BACKEND
    const initialUrl=`${baseURL}/getallitems`;
    const searchUrl = `${baseURL}/search`;
    const { data, loading,setLoading, setQuery } = useFetchData(initialUrl, searchUrl);
