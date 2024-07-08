@@ -34,7 +34,7 @@ pipeline {
             steps {
                 script {
                     echo 'BUILDING IMAGE WITH DOCKER COMPOSE...'
-                    sh 'docker-compose -f docker-compose.yml build'
+                    sh 'docker compose build'
                 }
             }
         }        
