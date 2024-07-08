@@ -37,14 +37,13 @@ pipeline {
                 }
             }
         }
-        stage('Image Build with Docker Compose') {
+        stage('Image Build') {
             when {
                 branch 'feature'
             }
             steps {
                 script {
-                    echo 'BUILDING IMAGE WITH DOCKER COMPOSE...'
-                    sh 'docker compose build'
+                    app = docker.build("${REGISTRY_FEATURE}:${env.BUILD_NUMBER}")
                 }
             }
         }        
@@ -55,10 +54,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('', 'dockerhub_creds') {                     
-                        sh "docker tag ${DOCKER_IMAGE_NAME} ${REGISTRY_FEATURE}:${env.BUILD_NUMBER}"
-                        sh "docker push ${REGISTRY_FEATURE}:${env.BUILD_NUMBER}"
-                        sh "docker tag ${DOCKER_IMAGE_NAME} ${REGISTRY_FEATURE}:latest"
-                        sh "docker push ${REGISTRY_FEATURE}:latest"
+                        app.push("latest")  
+                        app.push("${env.BUILD_NUMBER}")      
                     }
                 }
             }
