@@ -6,7 +6,7 @@ export default function PageNotFound(){
     return(
         <>
         <div className='pageNotFound'>
-        <h1 className="pageNotFound_nav">404 Not found</h1>;
+        <h1 className="pageNotFound_nav">404 Not found</h1>
         <div className="display">
                 <div className="display__img">
                 <img src={imgs} alt="404-Scarecrow" />
@@ -18,7 +18,7 @@ export default function PageNotFound(){
                 unavailable
                 </p>
                 <Link to='/' className='link_tag'>
-                <button className="btn">Back to homepage</button>
+                <button className="btn back-btn">Back to homepage</button>
                 </Link> 
       </div>
       </div>

@@ -6,13 +6,10 @@ export default function ModelView() {
   const { data } = useParams();  
   return (
     <div>
-      {data ? 
       <ModelViewer 
       PannelRightDisplay={true} 
        s3FilePath={data}
-      /> : (
-      <p>No Model URL provided</p>
-      )}
+      /> 
     </div>
   );
 }
