@@ -52,13 +52,15 @@
     color: white;
     cursor: pointer;
   }
-
+  .disabled-cursor {
+    cursor: not-allowed;
+    background-color: #2d2c2c;
+  }
   .browse-btn:hover {
     background-color: #555;
   }
   .OR_txt{
     margin: 2rem 0;
-
   }
   .generate__input__bar{
     display: flex;

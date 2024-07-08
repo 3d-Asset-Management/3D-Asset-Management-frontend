@@ -12,7 +12,7 @@ function Generate3D() {
         PannelRightDisplay={false} 
         s3FilePath={filePath}
         loader={loader}
-        />
+         className='model-viewer-down1'/>
       <Right3DGeneratePannel
        setFile={setFile}
        file={file}

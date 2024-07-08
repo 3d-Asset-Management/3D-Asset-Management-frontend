@@ -1,20 +1,13 @@
-html,body{
-    background: #0b0714;
-    color: antiquewhite;
-}
 .pageNotFound{
-    background: #0b0714;
-    color: antiquewhite;
+ margin-top: 8rem;
 }
 .pageNotFound_nav{
     font-family: "Inconsolata", monospace;
-    margin-top: 4rem;
     margin-left: 7.7rem;
     text-transform: uppercase;
   }
-
   .display {
-    margin-top: 5rem;
+    margin-top: 2rem;
     margin-left: 5rem;
     margin-right: 5rem;
     display: grid;
@@ -41,7 +34,10 @@ html,body{
     line-height: 1.7;
     width: 40rem;
   }
-  
+  .back-btn{
+    padding: 1rem 4rem;
+    font-size: 1rem;
+  }
   @media (max-width: 37.5em) { /* phone */
     .display__content {
       margin-left: 0;
@@ -52,6 +48,10 @@ html,body{
     }
   
     .display__content--text {
+      font-size: 1.5rem;
+    }
+    .back-btn{
+      padding: 2rem 8rem;
       font-size: 1.5rem;
     }
   }

@@ -1,17 +1,28 @@
-
+import { useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment, ContactShadows, Grid } from '@react-three/drei';
 import Model from '../../Model/Model';
 import useModelFiles from '../../../Hooks/useModelFiles';
 import Loader from '../../Loader/Loader';
 
-export default function CanvasView({ modelRef, wireframe, axes, grid, autoRotate, bgOptions, BgOnModel,s3FilePath }) {
-  
-  const {objUrl,mtlUrl,textureUrl,loading,setLoading} = useModelFiles(s3FilePath);
+export default function CanvasView({ modelRef, wireframe, axes, grid, autoRotate, bgOptions, BgOnModel, s3FilePath }) {
+  const { objUrl, mtlUrl, textureUrl, loading, setLoading } = useModelFiles(s3FilePath);
   const gridSize = 8;
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 500);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 500);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <>
-       {loading && <Loader />}
+      {loading && <Loader />}
       <Canvas camera={{ position: [-9, 5, 3], fov: 90 }}>
         <ambientLight intensity={0.3} />
         <directionalLight position={[10, 10, 50]} intensity={1.5} />
@@ -31,9 +42,9 @@ export default function CanvasView({ modelRef, wireframe, axes, grid, autoRotate
         {objUrl && mtlUrl && textureUrl && (
           <Model
             ref={modelRef}
-            objPath={objUrl}  
-            mtlPath={mtlUrl} 
-            texturePath={textureUrl} 
+            objPath={objUrl}
+            mtlPath={mtlUrl}
+            texturePath={textureUrl}
             gridSize={9}
             position={[0, 0, 0]}
             wireframe={wireframe}
@@ -42,7 +53,15 @@ export default function CanvasView({ modelRef, wireframe, axes, grid, autoRotate
         )}
 
         {axes && <axesHelper args={[100]} position={[0, 0, 0]} />}
-        <OrbitControls autoRotate={autoRotate} />
+        
+        <OrbitControls 
+          autoRotate={autoRotate} 
+          enableZoom={!isMobile} 
+          touchRotate={!isMobile}
+          touchZoom={!isMobile}
+          touchPan={!isMobile}
+        />
+        
         <ContactShadows rotation-x={Math.PI / 2} opacity={0.9} width={9} height={9} blur={100} />
         {BgOnModel && <Environment preset={bgOptions} background />}
       </Canvas>
