@@ -3,7 +3,7 @@ import { MdFileUpload } from "react-icons/md";
 import Buttons from '../Button/Button';
 import InputPromptBar from '../InputPromptBar/InputPromptBar';
 
-function Right3DGeneratePannel({ setFile, file, handleSubmit}) {
+function Right3DGeneratePannel({ setFile, file, handleSubmit,loader}) {
   
   const handleFileChange = (event) => {
     event.preventDefault();
@@ -11,7 +11,7 @@ function Right3DGeneratePannel({ setFile, file, handleSubmit}) {
   };
 
   return (
-    <div className='right3DpannelContainer'>
+    <div className={`right3DpannelContainer`} >
       <div className="container">
         <h2>Generation Attributes</h2>
         <div className="dropdown">
@@ -40,9 +40,9 @@ function Right3DGeneratePannel({ setFile, file, handleSubmit}) {
           <div className='generate__input__bar'>
             <InputPromptBar />
           </div>
-          <div className="GenerateRightPannel__bottom__bar">
-            <Buttons button_name={"Generate 3D Model"} type="submit" />
-            <span className="estimate-time">Estimated: 20 Sec | 30</span>
+          <div className={`GenerateRightPannel__bottom__bar `}>
+            <Buttons button_name={"Generate 3D Model"} type="submit" disabled={loader}/>
+            <span className="estimate-time">Estimated: 10 min</span>
           </div>
         </form>
       </div>

@@ -17,7 +17,7 @@
   .Model-container .right__modal{
     width: 30%;
     height: 100%;
-    background: #161617f3;
+    background: #6c6c6c;
     animation:  slideIn 0.5s ease-in-out;
   
   }
@@ -88,6 +88,7 @@
     .Model-container .right__modal{
       width: 100%;
       height: auto;
+  
     }
     .viewer .top-left{
       top:1.5rem;
