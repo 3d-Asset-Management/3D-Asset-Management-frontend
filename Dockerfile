@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-COPY ~/frontend_files/.env ./
+COPY /home/ubuntu/frontend_files/.env ./
 
 RUN npm install
 
