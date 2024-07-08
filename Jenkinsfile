@@ -27,6 +27,16 @@ pipeline {
                 }
             }
         }
+        stage('Download .env file') {
+            when {
+                branch 'feature'
+            }
+            steps {
+                script {
+                    sh 'aws s3 cp s3://frontend-files-team6/.env .'
+                }
+            }
+        }
         stage('Image Build with Docker Compose') {
             when {
                 branch 'feature'
