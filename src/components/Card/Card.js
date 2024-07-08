@@ -4,6 +4,7 @@ import './Card.css';
 
 
 export default function Card({ title, description, img_id,setLoading}) {
+
   const {imgUrl} = useModelFiles(img_id);
   setLoading(false);
   
@@ -34,8 +35,7 @@ export default function Card({ title, description, img_id,setLoading}) {
       </Link>
       <div class="ModelCard__contents__container ">
             <h3 class="text-medium">{title}</h3>
-            <p class="text-small modelBox__p">{description}</p>
-            
+            <p class="text-small modelBox__p">{description}</p>   
      </div>
     </div>
     </div>

@@ -4,16 +4,17 @@ import axios from 'axios';
 const useGenerate3D = (genUrl) => {
   const [file, setFile] = useState(null);
   const [filePath, setFilePath] = useState('');
-  const [loading,setLoading] = useState(false);
+  const [loader,setLoader] = useState(false);
   let answer;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+   
     if (!file) {
       alert("Please select a file first!");
       return;
     }
-    setLoading(true);
+    setLoader(true);
     //-- background remover ------------------------------------------------------------//
     const api_key = process.env.REACT_APP_API_BG;
     const apiUrl = "https://api.remove.bg/v1.0/removebg";
@@ -36,7 +37,7 @@ const useGenerate3D = (genUrl) => {
 
       // ---file that to be send to model generation api -----------------------------------------//
       const formData1 = new FormData();
-      formData1.append('img_id', "coke");
+      formData1.append('img_id',file.name.split('.').slice(0, -1).join('.'));
       formData1.append('file', file); // key is file
 
       try {
@@ -75,7 +76,7 @@ const useGenerate3D = (genUrl) => {
       console.log(response);
       if (response.data.status === '1') {
         //sucessfull 
-        setLoading(false);
+        setLoader(false);
         console.log("preparation done-");
         setFilePath(answer);
         
@@ -90,7 +91,7 @@ const useGenerate3D = (genUrl) => {
     }
   };
 
-  return { setFile, file, handleSubmit, filePath ,loading};
+  return { setFile, file, handleSubmit, filePath ,loader};
 };
 
 export default useGenerate3D;

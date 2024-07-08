@@ -4,8 +4,6 @@ import SearchBar from '../SearchBar/SearchBar';
 
  
 export default function CardContainer({data,setLoading, setQuery}) {
-   // const initialUrl='https://mocki.io/v1/a2318a2b-f314-4b6d-9edf-4d5eefcc895a';
-   
    return (
       <>
        <div className='container'>
@@ -23,9 +21,6 @@ export default function CardContainer({data,setLoading, setQuery}) {
                     description={item.description.slice(0,85)+'....'} 
                     img_id={item.img_id}
                     setLoading={setLoading}
-                  // key={item.id}
-                  // title={item.title}
-                  // img_id={item.image}
                  />
               ))}
            </div>

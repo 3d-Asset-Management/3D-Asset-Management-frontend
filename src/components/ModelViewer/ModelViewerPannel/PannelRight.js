@@ -3,7 +3,10 @@ import Button from '../../Button/Button';
 import { IoMdDownload } from "react-icons/io";
 import { BsToggleOff } from "react-icons/bs";
 import { BsToggleOn } from "react-icons/bs";
+import { useParams } from 'react-router-dom';
+
 export default function PannelRight({autoRotate, setAutoRotate, wireframe, setWireframe, axes, setAxes, grid, setGrid,handleDownloadClick}) {
+    const { data } = useParams(); 
     return (
         <>
            <div className="Modal__Pannel__right">
@@ -39,11 +42,11 @@ export default function PannelRight({autoRotate, setAutoRotate, wireframe, setWi
                                     </div>
                                     <div className='modal__controls__box__item'>
                                         <label>File Name</label>
-                                        <label>3D Boat</label>
+                                        <label>{data}</label>
                                     </div>
                                     <div className='modal__controls__box__item'>
                                         <label>File Type</label>
-                                        <label>glb</label>
+                                        <label>obj</label>
                                     </div>
                                     <div className='modal__controls__box__item'>
                                         <label>File Size</label>
