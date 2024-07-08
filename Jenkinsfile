@@ -7,7 +7,7 @@ pipeline {
     }
     environment {
         REGISTRY_FEATURE = 'rgeorgegrid/3d-asset-management-frontend_feature'
-        DOCKER_IMAGE_NAME = '3d-asset-management-frontend'
+        DOCKER_IMAGE_NAME = '3d-asset-management-frontend-app'
         DOCKER_REPO = 'feature'
         DOCKER_REPO_MAIN = 'main'
         DOCKERHUB_CREDS = credentials('dockerhub_creds')
@@ -24,6 +24,16 @@ pipeline {
                 script {
                     echo 'INSTALLING PACKAGES...'
                     sh 'npm install'
+                }
+            }
+        }
+        stage('Download .env file') {
+            when {
+                branch 'feature'
+            }
+            steps {
+                script {
+                    sh 'aws s3 cp s3://frontend-files-team6/.env .'
                 }
             }
         }
