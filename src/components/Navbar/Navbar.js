@@ -18,7 +18,6 @@ function Navbar({button}){
                  <ul className="navbar__list">
                     <li className="navbar__item active-class">3D store</li>
                     <li className="navbar__item">Model View</li>
-                    <li className="navbar__item">Contact</li>
                 </ul>
                
                 <Link to="/generate3D" className='link_tag'>   
