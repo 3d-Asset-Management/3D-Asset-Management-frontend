@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import useModelFiles from '../../Hooks/useModelFiles'
 import './Card.css';
-import Loader from '../Loader/Loader'
-
 
 export default function Card({ id,title, description, img_id}) {
 
