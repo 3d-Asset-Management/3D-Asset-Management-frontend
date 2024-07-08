@@ -7,7 +7,7 @@ pipeline {
     }
     environment {
         REGISTRY_FEATURE = 'rgeorgegrid/3d-asset-management-frontend_feature'
-        DOCKER_IMAGE_NAME = '3d-asset-management-frontend'
+        DOCKER_IMAGE_NAME = '3d-asset-management-frontend-app'
         DOCKER_REPO = 'feature'
         DOCKER_REPO_MAIN = 'main'
         DOCKERHUB_CREDS = credentials('dockerhub_creds')
@@ -27,13 +27,14 @@ pipeline {
                 }
             }
         }
-        stage('Image Build') {
+        stage('Image Build with Docker Compose') {
             when {
                 branch 'feature'
             }
             steps {
                 script {
-                    app = docker.build("${REGISTRY_FEATURE}:${env.BUILD_NUMBER}")
+                    echo 'BUILDING IMAGE WITH DOCKER COMPOSE...'
+                    sh 'docker-compose -f docker-compose.yml build'
                 }
             }
         }        
@@ -44,8 +45,10 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('', 'dockerhub_creds') {                     
-                        app.push("latest")  
-                        app.push("${env.BUILD_NUMBER}")      
+                        sh "docker tag ${DOCKER_IMAGE_NAME} ${REGISTRY_FEATURE}:${env.BUILD_NUMBER}"
+                        sh "docker push ${REGISTRY_FEATURE}:${env.BUILD_NUMBER}"
+                        sh "docker tag ${DOCKER_IMAGE_NAME} ${REGISTRY_FEATURE}:latest"
+                        sh "docker push ${REGISTRY_FEATURE}:latest"
                     }
                 }
             }
