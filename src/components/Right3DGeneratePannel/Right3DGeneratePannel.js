@@ -7,8 +7,9 @@ function Right3DGeneratePannel({ setFile, file, handleSubmit,loader}) {
   
   const handleFileChange = (event) => {
     event.preventDefault();
-    setFile(event.target.files[0]);
+    setFile(event.target.files[0]); 
   };
+
 
   return (
     <div className={`right3DpannelContainer`} >
@@ -41,7 +42,7 @@ function Right3DGeneratePannel({ setFile, file, handleSubmit,loader}) {
             <InputPromptBar />
           </div>
           <div className={`GenerateRightPannel__bottom__bar `}>
-            <Buttons button_name={"Generate 3D Model"} type="submit" disabled={loader}/>
+            <Buttons button_name={"Generate 3D Model"} type="submit" disabled={loader} />
             <span className="estimate-time">Estimated: 10 min</span>
           </div>
         </form>

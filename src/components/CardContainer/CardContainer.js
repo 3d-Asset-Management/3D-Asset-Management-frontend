@@ -3,7 +3,7 @@ import Card from '../Card/Card';
 import SearchBar from '../SearchBar/SearchBar';
 
  
-export default function CardContainer({data,setLoading, setQuery}) {
+export default function CardContainer({data, setQuery}) {
    return (
       <>
        <div className='container'>
@@ -21,7 +21,6 @@ export default function CardContainer({data,setLoading, setQuery}) {
                     title={item.img_id.slice(0,15).toUpperCase()}
                     description={item.description.slice(0,85)+'....'} 
                     img_id={item.img_id}
-                    setLoading={setLoading}
                  />
               ))}
            </div>

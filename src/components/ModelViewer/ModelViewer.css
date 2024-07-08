@@ -5,7 +5,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #191319f0;
+    background-color: #140f14f0;
   }
   .Model-container .viewer{
     width: 70%;
@@ -55,28 +55,7 @@
     left: auto;
     padding: 0.3rem 0.5rem;
   }
-
-  .viewer .bottom{
-    width: auto;
-    height: auto;
-    padding: 0.6rem 1rem; 
-    background: #0d0d1a94;
-    z-index: 11;
-    position: absolute;
-    bottom:1.5rem;
-    right: 1.5rem;
-    border-radius: 1rem;
-    border: 0.05rem solid #5a585851;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 2rem;
-    color: rgb(223, 224, 226);
-    font-size: 2rem;
-    z-index: 111;
-  }
-
-  
+ 
   
   @media (max-width: 550px) {
     .Model-container{
@@ -91,18 +70,20 @@
     .Model-container .right__modal{
       width: 100%;
       height: auto;
+  
     }
     .viewer .top-left{
       top:1rem;
       left: 0.5rem;
-      position: fixed;
-      /* width: 1rem;
-      height: 1rem; */
+      background: #130c0cce;
+      border: none;
     }
     .viewer .top-right{
-      position: fixed;
       top:1rem;
       right: 1rem;
+      background: #130c0c;
+      border: none;
+      padding: 0.5rem 0.74rem;
     }
     
   }

@@ -4,8 +4,10 @@
     text-align: center;
     padding:2rem 3rem;
     font-family: Arial, sans-serif;
-    background-color: #2b2b2b;
+    background-color: #212021f0;
     color: white;
+    box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.2);
+    font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
 }
 
   .container {
@@ -35,11 +37,12 @@
   
   .file-drop {
     display: block;
-    padding: 3rem 0rem;
+    padding: 2rem 0rem;
     border: 2px dashed #6a6a6a;
     border-radius: 5px;
     cursor: pointer;
-    background: #222222;
+    background: linear-gradient(135deg, #0101011d, #120c0f34);
+    box-shadow: inset 7px 7px 10px rgba(0, 0, 0, 0.2);
   }
   
   .browse-btn{
@@ -54,8 +57,8 @@
   }
   .disabled-cursor {
     cursor: not-allowed;
-    background-color: #2d2c2c;
   }
+ 
   .browse-btn:hover {
     background-color: #555;
   }
@@ -85,5 +88,7 @@
      .right3DpannelContainer{
         width:auto;
         padding: 1rem 2rem;
+        box-shadow: inset 0px -6px 100px rgba(21, 21, 21, 0.393) ;
      }
+
   }

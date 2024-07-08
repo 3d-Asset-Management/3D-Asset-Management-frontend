@@ -13,7 +13,7 @@ export default function ModelViewer({ PannelRightDisplay = true, s3FilePath ,loa
   const [autoRotate, setAutoRotate] = useState(PannelRightDisplay);
   const [wireframe, setWireframe] = useState(false);
   const [axes, setAxes] = useState(false);
-  const [grid, setGrid] = useState(true);
+  const [grid, setGrid] = useState(PannelRightDisplay);
   const [bgOptions, setBgOptions] = useState('sunset');
   const [BgOnModel, setBgOnModel] = useState(false);
 
@@ -30,6 +30,17 @@ export default function ModelViewer({ PannelRightDisplay = true, s3FilePath ,loa
     }
   };
 
+  const handleBackClick = () => {
+    if (loader) {
+      const confirmNavigation = window.confirm("You have unsaved changes. Are you sure you want to leave this page?");
+      if (confirmNavigation) {
+        navigate("/");
+      }
+    } else {
+      navigate("/");
+    }
+  };
+
   const handleReset = () => {
     setZoom(false);
     setAutoRotate(true);
@@ -42,7 +53,7 @@ export default function ModelViewer({ PannelRightDisplay = true, s3FilePath ,loa
   };
 
   return (
-    <div className="Model-container">
+    <div className="Model-container" >
       <div className="viewer">
         {PannelRightDisplay && (
           <div className="top-left" onClick={handleZoomClick}>
@@ -51,7 +62,7 @@ export default function ModelViewer({ PannelRightDisplay = true, s3FilePath ,loa
         )}
 
         {!PannelRightDisplay && (
-          <div className="top-left" onClick={() => { navigate("/") }}>
+          <div className="top-left" onClick={handleBackClick}>
             {<AiFillHome />}
           </div>
         )}

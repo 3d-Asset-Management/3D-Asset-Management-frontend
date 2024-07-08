@@ -21,16 +21,16 @@ const useFetchData = (initialUrl, searchUrl, initialQuery = '') => {
       {
         setError(err);
       }
-      //  finally 
-      //  {
-        
-      // }
+       finally 
+       {
+        setLoading(false);
+      }
     };
 
     fetchData();
   }, [initialUrl, searchUrl, query]);
 
-  return { data, loading, error, setQuery ,setLoading};
+  return { data, loading, error, setQuery };
 };
 
 export default useFetchData;

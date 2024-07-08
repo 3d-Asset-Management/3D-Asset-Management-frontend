@@ -1,0 +1,53 @@
+.canvas_container{
+    height: 100vh;
+    background: linear-gradient(270deg, #16192376, #2c0c0709);
+}
+
+.welcome-message {
+    position: absolute;
+    width: 45rem;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #c5c1c1;
+    background: linear-gradient(13deg, #b7b0b034,#b2a5a51d);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 80%;
+    z-index: 7;
+    padding: 4rem 2rem;
+  }
+
+  .welcome-message h1 {
+    font-size: 2.5rem;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  }
+
+  .welcome-message h5 {
+    font-size: 1.3rem;
+    font-weight: normal;
+    letter-spacing: 0.08rem;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  }
+
+  .canvas-img {
+    width: 55%;
+    height: 50%;
+    filter: drop-shadow(0px 4px 10px rgba(57, 57, 58, 0.687));
+  }
+  @media (max-width:550px){
+
+    .welcome-message{
+        top:45%;
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2);
+        background: linear-gradient(135deg, #580d2d34,#1c11131d);
+        }
+    .canvas-img{
+        margin-top: 7rem;
+        width: 80%;
+        height: 35%;
+    }
+  }
