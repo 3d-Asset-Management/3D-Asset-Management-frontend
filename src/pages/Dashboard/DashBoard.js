@@ -9,7 +9,7 @@ function Dashboard() {
    const baseURL = process.env.REACT_APP_MASTER_URL_BACKEND
    const initialUrl=`${baseURL}/getallitems`;
    const searchUrl = `${baseURL}/search`;
-   const { data, loading,setLoading, setQuery } = useFetchData(initialUrl, searchUrl);
+   const { data, loading, setQuery } = useFetchData(initialUrl, searchUrl);
   return (
     <>
     {loading && <Loader/>}
@@ -18,7 +18,6 @@ function Dashboard() {
             <Navbar />
             <CardContainer
              data={data}
-             setLoading={setLoading}
              setQuery={setQuery}
             />
           </div>

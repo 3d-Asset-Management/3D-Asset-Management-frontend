@@ -3,16 +3,19 @@ import Right3DGeneratePannel from '../../components/Right3DGeneratePannel/Right3
 import './Generate3D.css';
 import useGenerate3D from '../../Hooks/useGenerate3D';
 
+
 function Generate3D() {
   const genUrl = process.env.REACT_APP_MASTER_URL;
   const {setFile,file,handleSubmit,filePath,loader} = useGenerate3D(genUrl)
+
   return (
     <div className='generate3D__box'>
        <ModelViewer 
         PannelRightDisplay={false} 
         s3FilePath={filePath}
         loader={loader}
-         className='model-viewer-down1'/>
+         className='model-viewer-down1'
+         />
       <Right3DGeneratePannel
        setFile={setFile}
        file={file}

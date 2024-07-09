@@ -2,11 +2,9 @@ import { Link } from "react-router-dom";
 import useModelFiles from '../../Hooks/useModelFiles'
 import './Card.css';
 
-
-export default function Card({ id,title, description, img_id,setLoading}) {
+export default function Card({ id,title, description, img_id}) {
 
   const {imgUrl} = useModelFiles(img_id);
-  setLoading(false);
   const handleMouseMove = (e, card) => {
     const x = e.pageX - card.offsetLeft;
     const y = e.pageY - card.offsetTop;
@@ -39,7 +37,7 @@ export default function Card({ id,title, description, img_id,setLoading}) {
      </div>
     </div>
     </div>
-   
+    
     </>
   );
 }
