@@ -31,7 +31,7 @@ export default function CanvasView({ modelRef, wireframe, axes, grid, autoRotate
         <h1>🚀 Welcome to the 3D Fun Zone! 🎉</h1>
         <h5>Transform your flat images into awesome 3D models!</h5>
       
-       <img src={imgs} alt='3dimg' className='canvas-img'/></div>
+       <img src={imgs} alt='imgs' className='canvas-img'/></div>
        </>
       )}
       <Canvas camera={{ position: [-9, 5, 3], fov: 90  }}>
