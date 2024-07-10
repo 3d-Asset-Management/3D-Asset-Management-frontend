@@ -8,6 +8,8 @@ COPY .env ./
 
 RUN npm install -g npm@10.8.1
 
+RUN npm install react-app-rewired --save-dev
+
 COPY . .
 
 EXPOSE 3000
