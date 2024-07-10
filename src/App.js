@@ -3,7 +3,6 @@ import Generate3D from './pages/Generate3D/Generate3D';
 import ModelView from './pages/ModelView/ModelView';
 import PageNotFound from './components/PageNotFound/PageNotFound'
 import { Route, Routes } from 'react-router-dom';
-
 import './App.css';
 
 function App() {

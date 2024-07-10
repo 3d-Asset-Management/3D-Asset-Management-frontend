@@ -8,8 +8,9 @@ export default function Loader() {
     const delayDurations = {
       25: 2000,
       50: 2000,
-      75: 2000,
-      99: 5000,
+      75: 100000,
+      85: 100000,
+      99: 1000,
     };
 
     const incrementPercentage = (current) => {
