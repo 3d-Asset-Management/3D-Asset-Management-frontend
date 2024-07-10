@@ -6,7 +6,7 @@ COPY package*.json ./
 
 COPY .env ./
 
-RUN RUN npm install -g npm@10.8.1
+RUN npm install -g npm@10.8.1
 
 COPY . .
 
