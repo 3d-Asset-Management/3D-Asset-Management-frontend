@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 
 export default function PannelRight({autoRotate, setAutoRotate, wireframe, setWireframe, axes, setAxes, grid, setGrid,handleDownloadClick}) {
     const { id } = useParams(); 
+    // console.log(backendUrl)
     const {fetchedData} = useFetchMetadata(id);
 
     return (
@@ -35,7 +36,7 @@ export default function PannelRight({autoRotate, setAutoRotate, wireframe, setWi
                                 <div className='modal__controls__box__item'>
                                     <label>Grid</label>
                                     <label className='toggle__icon' onClick={()=> setGrid(!grid)}>{grid?<BsToggleOn/>:<BsToggleOff />}</label>
-                                </div>   
+                                </div>  
                         </div>
                  </div>
                  <div className='modal__properties'>
@@ -49,7 +50,7 @@ export default function PannelRight({autoRotate, setAutoRotate, wireframe, setWi
                                     </div>
                                     <div className='modal__controls__box__item'>
                                         <label>File Type</label>
-                                        <label>Obj</label>
+                                        <label>GLB</label>
                                     </div>
                                     
                                     <div className='modal__controls__box__item'>

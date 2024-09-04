@@ -22,37 +22,29 @@ const getFileFromS3 = async (bucket_name, key) => {
     return url;
   } catch (error) {
     console.error('Error fetching the file from S3', error);
-    return null;
   }
 };
 
 export default function useModelFiles(key) {
-  const bucket_name = 'model-store-capstone';
-  const [objUrl, setObjUrl] = useState(null);
-  const [mtlUrl, setMtlUrl] = useState(null);
-  const [textureUrl, setTextureUrl] = useState(null);
+  const bucket_name = '3d-asset-store';
+  const [glbUrl, setGlbUrl] = useState(null);
   const [imgUrl, setimgUrl] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!key) return; // Return early if key is empty or undefined
-
+    if (!key) return; 
     const loadModelFiles = async () => {
-      setLoading(true); // Set loading to true when starting to load files
-
-      const imagePath = await getFileFromS3(bucket_name, `${key}/image.png`);
+      setLoading(true);  // loader start --->
+      const imagePath = await getFileFromS3(bucket_name, `${key}/model/input.png`);
       setimgUrl(imagePath);
-      const objPath = await getFileFromS3(bucket_name, `${key}/model.obj`);
-      const mtlPath = await getFileFromS3(bucket_name, `${key}/model.mtl`);
-      const texturePath = await getFileFromS3(bucket_name, `${key}/texture_kd.jpg`);
-      setObjUrl(objPath);
-      setMtlUrl(mtlPath);
-      setTextureUrl(texturePath);
-
+      const glbPath = await getFileFromS3(bucket_name, `${key}/model/mesh.glb`);
+      setGlbUrl(glbPath);
+ 
     };
 
     loadModelFiles();
+    // setLoading(false);  // loader end --->
   }, [key]);
-
-  return { objUrl, mtlUrl, textureUrl, imgUrl, loading, setLoading };
+ 
+  return { glbUrl, imgUrl, loading ,setLoading};
 }

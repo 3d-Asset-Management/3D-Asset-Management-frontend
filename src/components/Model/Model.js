@@ -1,41 +1,31 @@
 import { useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { useLoader, useThree } from '@react-three/fiber';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
-import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
-import { TextureLoader, Box3, Vector3 } from 'three';
-import { OBJExporter } from 'three/examples/jsm/exporters/OBJExporter';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { Box3, Vector3 } from 'three';
+import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter';
 import { saveAs } from 'file-saver';
 
-const Model = forwardRef(({ objPath, mtlPath, texturePath, gridSize, wireframe, setLoading }, ref) => {
+const Model = forwardRef(({ glbPath, gridSize, wireframe ,setLoading}, ref) => {
   const { scene } = useThree();
 
-  // Load materials first
-  const materials = useLoader(MTLLoader, mtlPath);
-  materials.preload();
-
-  // Load the object
-  const obj = useLoader(OBJLoader, objPath, (loader) => {
-    loader.setMaterials(materials);
-  });
-
-  // Load the texture
-  const texture = useLoader(TextureLoader, texturePath);
+  // Load the GLB model
+  const gltf = useLoader(GLTFLoader, glbPath);
 
   const mesh = useRef();
-
+ 
   useEffect(() => {
-    obj.traverse((child) => {
+    gltf.scene.traverse((child) => {
       if (child.isMesh) {
-        child.material.map = texture;
-        child.material.needsUpdate = true;
         child.material.wireframe = wireframe;
+        child.material.needsUpdate = true;
       }
     });
+
     if (mesh.current) {
       scene.add(mesh.current);
     }
-    setLoading(false);
-  }, [obj, texture, wireframe, scene, setLoading]);
+    setLoading(false)
+  }, [gltf, wireframe, scene,setLoading]);
 
   useEffect(() => {
     if (mesh.current) {
@@ -51,14 +41,19 @@ const Model = forwardRef(({ objPath, mtlPath, texturePath, gridSize, wireframe, 
 
   useImperativeHandle(ref, () => ({
     handleDownload() {
-      const exporter = new OBJExporter();
-      const result = exporter.parse(mesh.current, { includeMaterials: true });
-      const blob = new Blob([result], { type: 'text/plain' });
-      saveAs(blob, 'model.obj');
+      const exporter = new GLTFExporter();
+      exporter.parse(
+        mesh.current,
+        (gltf) => {
+          const blob = new Blob([gltf], { type: 'model/gltf-binary' });
+          saveAs(blob, 'model.glb');
+        },
+        { binary: true }
+      );
     }
   }));
 
-  return <primitive ref={mesh} object={obj} />;
+  return <primitive ref={mesh} object={gltf.scene} />;
 });
 
 export default Model;

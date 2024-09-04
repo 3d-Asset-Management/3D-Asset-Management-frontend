@@ -14,15 +14,22 @@ export default function CardContainer({data, setQuery}) {
              <SearchBar setQuery={setQuery}/>
            </div>
            <div className='card__container'>
-              { data.map((item) => (
-                 <Card 
-                    key={item.unique_id} 
-                    id={item.unique_id}
-                    title={item.img_id.slice(0,15).toUpperCase()}
-                    description={item.description.slice(0,85)+'....'} 
-                    img_id={item.img_id}
-                 />
-              ))}
+               {data.length ? (
+                     data.map((item) => (
+                        <Card 
+                           key={item.unique_id} 
+                           id={item.unique_id}
+                           title={item.img_id?.slice(0,15).toUpperCase()}
+                           description={item.description?.slice(0,85)+'....'} 
+                           img_id={item.img_id}
+                  
+                        />
+                     ))
+                     ) : (
+                     <span className='connection_failure'>
+                        Internal server Error
+                     </span>
+                     )}
            </div>
        </div>
        </>

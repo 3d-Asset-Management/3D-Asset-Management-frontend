@@ -5,13 +5,28 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  .bgColorClass-black{
+    background-color: black;
+  }
+  .bgColorClass-white{
+    background-color: rgb(159, 156, 156);
+  }
+  .bgColorClass-blue{
     background-color: #140f14f0;
+  }
+  .active-btn{
+    background-color: #08ff7b;
+    border: #08ff7b 0.1rem solid;
+    border-radius: 2rem;
+    padding: 0rem 0.5rem;
   }
   .Model-container .viewer{
     width: 70%;
     height: 100%;
     position: relative;
     flex-grow: 1; 
+    cursor: pointer;
   }
   
   .Model-container .right__modal{
@@ -30,7 +45,7 @@
     
   }
 
-   .viewer .top-left,.viewer .top-right{
+   .viewer .top-left,.viewer .top-right {
     width: auto;
     height: auto;
     padding: 0.8rem;
@@ -55,6 +70,16 @@
     left: auto;
     padding: 0.3rem 0.5rem;
   }
+  .viewer .bottom-right {
+    position: absolute;  
+    bottom: 1.5rem;     
+    right: 1.5rem;      
+    padding: 0.3rem 0.5rem;
+    z-index: 111;
+    display: flex;
+    gap: 0.7rem;
+}
+
  
   
   @media (max-width: 550px) {

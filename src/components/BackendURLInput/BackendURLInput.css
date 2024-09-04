@@ -1,0 +1,62 @@
+.url-container-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.url-container {
+    padding: 5rem 9rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .url-container h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #b1aeae;
+    font-weight: bold;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+ 
+  
+  .url-input {
+    width: 90%;
+    padding: 12px 50px;
+    margin-bottom: 20px;
+    background-color: #23272a;
+    border: 2px solid #776fe8;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #ffffff;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  .connect-btn {
+    padding: 12px 45px;
+    background-color: #7289da;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  .connect-btn:disabled {
+    background-color: #4b5261;
+    cursor: not-allowed;
+  }
+    
+  .status-icon {
+    margin-top: 20px;
+  }
+  

@@ -4,8 +4,10 @@ import './Generate3D.css';
 import useGenerate3D from '../../Hooks/useGenerate3D';
 
 
-function Generate3D() {
-  const genUrl = process.env.REACT_APP_MASTER_URL;
+function Generate3D({backendUrl}) {
+  // const genUrl = process.env.REACT_APP_MASTER_URL;
+  const genUrl=backendUrl;
+  console.log(genUrl);
   const {setFile,file,handleSubmit,filePath,loader} = useGenerate3D(genUrl)
 
   return (

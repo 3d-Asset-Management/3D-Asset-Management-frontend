@@ -10,7 +10,6 @@ const useFetchData = (initialUrl, searchUrl, initialQuery = '') => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-
         setLoading(true);
         const response = await axios.get(query ? searchUrl : initialUrl,{
           params:{query}

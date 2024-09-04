@@ -5,8 +5,9 @@ import Navbar from '../../components/Navbar/Navbar';
 import useFetchData from '../../Hooks/useFetchData';
 import Loader from '../../components/Loader/Loader';
 import './Dashboard.css';
-function Dashboard() {
-   const baseURL = process.env.REACT_APP_MASTER_URL_BACKEND
+function Dashboard({backendUrl}) {
+  //  const baseURL = process.env.REACT_APP_MASTER_URL_BACKEND
+   const baseURL = backendUrl;
    const initialUrl=`${baseURL}/getallitems`;
    const searchUrl = `${baseURL}/search`;
    const { data, loading, setQuery } = useFetchData(initialUrl, searchUrl);
@@ -19,6 +20,7 @@ function Dashboard() {
             <CardContainer
              data={data}
              setQuery={setQuery}
+             backendUrl={backendUrl}
             />
           </div>
           <Footer />

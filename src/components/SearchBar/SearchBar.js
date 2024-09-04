@@ -1,19 +1,34 @@
 import './SearchBar.css';
 import { CiSearch } from "react-icons/ci";
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import _ from 'lodash';
 
-function Searchbar({setQuery }) {
-  const [inputValue,setInputValue] = useState('');
+function Searchbar({ setQuery }) {
+  const [inputValue, setInputValue] = useState('');
 
-  const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      setQuery(inputValue.trim());
-    }
+  // Memoize the debounced function to ensure it is stable
+  const debouncedSearch = useMemo(
+    () =>
+      _.debounce((query) => {
+        setQuery(query.trim());
+        console.log('Searching for:', query);
+      }, 1000),
+    [setQuery]
+  );
+
+  // Use effect to trigger the debounced function when inputValue changes
+  useEffect(() => {
+    debouncedSearch(inputValue);
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [inputValue, debouncedSearch]);
+
+  const handleInputChange = (event) => {
+    const value = event.target.value;
+    setInputValue(value);
   };
- const handleInputChange =(e)=>{
-      setInputValue(e.target.value)
- }
+
   return (
     <div className="search-container">
       <CiSearch className='search__icon' />
@@ -24,9 +39,9 @@ function Searchbar({setQuery }) {
         tabIndex="1"
         value={inputValue}
         onChange={handleInputChange}
-        onKeyDown={handleKeyPress}
       />
     </div>
   );
 }
+
 export default Searchbar;

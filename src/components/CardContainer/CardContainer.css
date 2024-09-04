@@ -14,11 +14,18 @@
     font-weight: 800;
 }
 .card__container{
+    min-height: 70vh;
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
     gap: 3rem 1rem;
+    align-items: center;
 
+}
+.connection_failure{
+    color: rgb(176, 180, 183);
+    font-size: 1.6rem;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 @media (max-width: 768px) {

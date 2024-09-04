@@ -1,25 +1,26 @@
-import { useState,useEffect ,setError} from "react";
+import { useState,useEffect} from "react";
 
 const useFetchMetadata = (id)=>{
     const [fetchedData, setFetchedData] = useState('-');
-  
+    const backendUrl = JSON.parse(localStorage.getItem('sharedData'));
     useEffect(() => {
         if(!id) return; 
         const fetchData = async () => {
           try {
-            const response = await fetch(`${process.env.REACT_APP_MASTER_URL_BACKEND}/metadataDisplay/${id}`);
+            const response = await fetch(`${backendUrl}/metadataDisplay/${id}`);
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`);
             }
             const result = await response.json();
             setFetchedData(result[0]);
           } catch (error) {
-            setError(error.message);
+            // setError(error.message);
+            console.error(error)
           }
         };
     
         fetchData();
-      }, [id]);
+      }, [id,backendUrl]);
      
   return {fetchedData};
 

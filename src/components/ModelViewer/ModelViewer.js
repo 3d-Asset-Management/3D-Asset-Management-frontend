@@ -16,6 +16,11 @@ export default function ModelViewer({ PannelRightDisplay = true, s3FilePath ,loa
   const [grid, setGrid] = useState(PannelRightDisplay);
   const [bgOptions, setBgOptions] = useState('sunset');
   const [BgOnModel, setBgOnModel] = useState(false);
+  const [bgColorClass, setBgColorClass] = useState('bgColorClass-black');
+  
+  const handleColorChange = (colorClass) => {
+    setBgColorClass(colorClass);
+  };
 
   const navigate = useNavigate();
   const modelRef = useRef();
@@ -53,7 +58,7 @@ export default function ModelViewer({ PannelRightDisplay = true, s3FilePath ,loa
   };
 
   return (
-    <div className="Model-container" >
+    <div className={`Model-container ${bgColorClass}`}>
       <div className="viewer">
         {PannelRightDisplay && (
           <div className="top-left" onClick={handleZoomClick}>
@@ -73,6 +78,11 @@ export default function ModelViewer({ PannelRightDisplay = true, s3FilePath ,loa
             handleReset={handleReset} 
           />
         </div>
+        <div className="bottom-right">
+          <button type='button' className={`colorPicker colorPicker--1 ${bgColorClass === 'bgColorClass-black'?'active-btn':''}`} onClick={() => handleColorChange('bgColorClass-black')} />
+          <button type='button' className={`colorPicker colorPicker--2 ${bgColorClass === 'bgColorClass-white'?'active-btn':''}`} onClick={() => handleColorChange('bgColorClass-white')}/>
+          <button type='button' className={`colorPicker colorPicker--3 ${bgColorClass === 'bgColorClass-blue'?'active-btn':''}`} onClick={() => handleColorChange('bgColorClass-blue')} />
+        </div>
         {loader && <Loader />}
         <CanvasView
           modelRef={modelRef}
@@ -83,6 +93,8 @@ export default function ModelViewer({ PannelRightDisplay = true, s3FilePath ,loa
           bgOptions={bgOptions}
           BgOnModel={BgOnModel}
           s3FilePath={s3FilePath}
+          PannelRightDisplay={PannelRightDisplay}
+          bgColorClass={bgColorClass}
         />
       </div>
       {PannelRightDisplay && !zoom && (
